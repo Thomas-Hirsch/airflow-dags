@@ -8,11 +8,9 @@ log = LoggingMixin().log
 try:
     from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
-    args = {"owner": "Robin",
+    args = {"owner": "Thomas-hirsch",
             "start_date": datetime(2019, 2, 11),
-            "retries": 2,
-            "retry_delay": timedelta(minutes=50),
-            "email": ["robin.linacre@digital.justice.gov.uk"],
+            "email": ["thomas.hirsch@justice.gov.uk"],
             "pool": "occupeye_pool"}
 
     dag = DAG(
