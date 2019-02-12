@@ -13,7 +13,7 @@ task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "email_on_retry": False,
-    "retries": 20,
+    "retries": 2,
     "retry_delay": timedelta(seconds=30),
     "retry_exponential_backoff": True,
     "max_retry_delay": timedelta(minutes=15),
@@ -37,7 +37,8 @@ task_dag = KubernetesPodOperator(
     image=IMAGE,
     env_vars={
     },
-    arguments=["{{ ds }}"],
+    cmds=["bash", "-c"],
+    arguments=["python prison_pop_loop.py --download-data"],
     labels={"app": dag.dag_id},
     name="prison-pop",
     in_cluster=True,
