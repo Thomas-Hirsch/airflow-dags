@@ -8,11 +8,11 @@ log = LoggingMixin().log
 try:
     from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
-    args = {"owner": "Robin",
-            "start_date": datetime(2019, 1, 30),
+    args = {"owner": "Thomas-Hirsch",
+            "start_date": datetime(2019, 2, 13),
             "retries": 5,
             "retry_delay": timedelta(minutes=50),
-            "email": ["robin.linacre@digital.justice.gov.uk"],
+            "email": ["thomas.hirsch@justice.gov.uk"],
             "pool": "occupeye_pool"}
 
     dag = DAG(
@@ -23,7 +23,7 @@ try:
 
     surveys_to_s3 = KubernetesPodOperator(
         namespace="airflow",
-        image="593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-occupeye-scraper:v0.4",
+        image="593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-occupeye-scraper:v0.5",
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5"
