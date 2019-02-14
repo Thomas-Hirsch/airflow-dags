@@ -21,8 +21,9 @@ dag = DAG(
     description= "Process and curate NOMIS data for Anvil replacement",
     #start_date= datetime.now(),
     #schedule_interval= None
-    start_date= datetime(2019, 2, 8, 2),
-    schedule_interval= timedelta(days=1)
+    start_date= datetime(2019, 2, 15, 2),
+    schedule_interval= timedelta(days= 1),
+    catchup= False
 )
 
 #############################
