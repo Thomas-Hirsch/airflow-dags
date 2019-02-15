@@ -40,7 +40,7 @@ nomis_tsk_dic = nomis_transform_tasks(dag)
 
 #####
 ## Assault Reasons task
-from airflow-assaults-reasons import assign_task_to_dag as ar_task
+from airflow_assaults_reasons import assign_task_to_dag as ar_task
 assault_reason_tsk = ar_task(dag)
 
 nomis_tsk_dic["tsk_denorm_inc_invol"] >> assault_reason_tsk
