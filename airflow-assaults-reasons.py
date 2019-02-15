@@ -1,13 +1,8 @@
 from datetime import datetime, timedelta
-
 import airflow
 from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 from airflow.utils.dates import days_ago
-
-# Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-assault-reasons:v0.4.1"
-ROLE = "airflow_assaults_reasons"
 
 # Task arguments
 task_args = {
@@ -31,15 +26,23 @@ dag = DAG(
     catchup=False
 )
 
-task_id = "assaults-reasons-data-update"
-task1 = KubernetesPodOperator(
-    dag=dag,
-    namespace="airflow",
-    image=IMAGE,
-    labels={"app": dag.dag_id},
-    name=task_id,
-    in_cluster=True,
-    task_id=task_id,
-    get_logs=True,
-    annotations={"iam.amazonaws.com/role": ROLE},
-)
+def assign_task_to_dag(target_dag):
+
+    # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
+    IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-assault-reasons:v0.4.1"
+    ROLE = "airflow_assaults_reasons"
+    task_id = "assaults-reasons-data-update"
+
+    return KubernetesPodOperator(
+        dag= target_dag,
+        namespace="airflow",
+        image=IMAGE,
+        labels={"app": target_dag.dag_id},
+        name=task_id,
+        in_cluster=True,
+        task_id=task_id,
+        get_logs=True,
+        annotations={"iam.amazonaws.com/role": ROLE},
+    )
+
+task1 = assign_task_to_dag(dag)
