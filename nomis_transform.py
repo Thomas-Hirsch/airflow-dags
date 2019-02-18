@@ -29,7 +29,12 @@ dag = DAG(
 #############################
 ## NOMIS data transformations
 
-def assign_task_list_to_dag(target_dag):
+json_path = os.path.dirname(__file__) + "/dag_configs/nomis_transform_tasks.json"
+with open(json_path) as f:
+    airflow_tasks = json.load(f)
+
+
+def assign_task_list_to_dag(target_dag, dag_config):
 
     # Define docker image and the AWS role (based on the airflow-repo)
     repo_name = "airflow-nomis-transform"
@@ -47,14 +52,10 @@ def assign_task_list_to_dag(target_dag):
     entry_py_script = "run.py"
     work_capacity = "4"
 
-    json_path = os.path.dirname(__file__) + "/dag_configs/nomis_transform_tasks.json"
-    with open(json_path) as f:
-        airflow_tasks = json.load(f)
-
 
     # Define the set of tasks using the airflow_tasks .json file
     task_dic = dict()
-    for tsk in airflow_tasks["tasks"]:
+    for tsk in dag_config["tasks"]:
 
         nom = f'nomis-{tsk["operation"]}-{tsk["task_id"]}'.replace("_","-")
         table_set_string = ','.join(t for t in tsk["table_set"])
@@ -89,9 +90,14 @@ def assign_task_list_to_dag(target_dag):
             get_logs= True,
             annotations= {"iam.amazonaws.com/role": ROLE},
             )
+    
+    return task_dic
 
+
+def set_task_dependencies(task_dic, dag_config):
+    
     # Define the DAG dependencies using airflow_tasks.json
-    for tsk in airflow_tasks["tasks"]:
+    for tsk in dag_config["tasks"]:
         for dep in tsk["task_dependency_ids"]:
 
             task_dic[dep] >> task_dic[tsk["task_id"]]
@@ -99,7 +105,5 @@ def assign_task_list_to_dag(target_dag):
     return task_dic
 
 
-#def set_nomis_transform_dependencies(task_dic):
-#    return None
-
-task_dic = assign_task_list_to_dag(dag)
+task_dic = assign_task_list_to_dag(dag, airflow_tasks)
+task_dic = set_task_dependencies(task_dic, airflow_tasks)
