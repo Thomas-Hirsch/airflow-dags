@@ -114,6 +114,6 @@ for tsk in airflow_tasks["tasks"]:
 from airflow_assaults_reasons import assign_task_to_dag as ar_task
 assault_reason_tsk = ar_task(dag)
 
-nomis_tsk_dic["tsk_denorm_inc_invol"] >> assault_reason_tsk
-nomis_tsk_dic["tsk_locations"] >> assault_reason_tsk
+task_dic["tsk_denorm_inc_invol"] >> assault_reason_tsk
+task_dic["tsk_locations"] >> assault_reason_tsk
 
