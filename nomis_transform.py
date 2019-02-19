@@ -53,7 +53,7 @@ def assign_task_list_to_dag(target_dag, dag_config):
     work_capacity = "4"
 
 
-    # Define the set of tasks using the airflow_tasks .json file
+    # Define the set of tasks using the dag_config dictionary
     task_dic = dict()
     for tsk in dag_config["tasks"]:
 
@@ -96,7 +96,7 @@ def assign_task_list_to_dag(target_dag, dag_config):
 
 def set_task_dependencies(task_dic, dag_config):
     
-    # Define the DAG dependencies using airflow_tasks.json
+    # Define the DAG dependencies using the dag_config dictionary
     for tsk in dag_config["tasks"]:
         for dep in tsk["task_dependency_ids"]:
 
