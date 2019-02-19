@@ -5,10 +5,6 @@ from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 from airflow.utils.dates import days_ago
 
-# Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-sdt:v1.5"
-ROLE = "airflow_sdt"
-
 # Task arguments
 task_args = {
     "depends_on_past": False,
@@ -31,15 +27,23 @@ dag = DAG(
     catchup=False
 )
 
-task_id = "sdt-data-update"
-task1 = KubernetesPodOperator(
-    dag=dag,
-    namespace="airflow",
-    image=IMAGE,
-    labels={"app": dag.dag_id},
-    name=task_id,
-    in_cluster=True,
-    task_id=task_id,
-    get_logs=True,
-    annotations={"iam.amazonaws.com/role": ROLE},
-)
+def assign_task_to_dag(target_dag):
+
+    # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
+    IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-sdt:v1.5"
+    ROLE = "airflow_sdt"
+    task_id = "sdt-data-update"
+    
+    return KubernetesPodOperator(
+        dag=dag,
+        namespace="airflow",
+        image=IMAGE,
+        labels={"app": dag.dag_id},
+        name=task_id,
+        in_cluster=True,
+        task_id=task_id,
+        get_logs=True,
+        annotations={"iam.amazonaws.com/role": ROLE},
+    )
+
+task = assign_task_to_dag(dag)

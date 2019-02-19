@@ -36,10 +36,10 @@ nomis_tsk_dic = set_nomis_dependencies(nomis_tsk_dic, nomis_config)
 
 #####
 ## VIPER task
-#from viper import assign_task_to_dag as viper_task
-#viper_tsk = viper_task(dag)
-#nomis_tsk_dic["tsk_denorm_pop"] >> viper_tsk
-#nomis_tsk_dic["tsk_denorm_inc_invol"] >> viper_tsk
+from viper import assign_task_to_dag as viper_task
+viper_tsk = viper_task(dag)
+nomis_tsk_dic["tsk_denorm_pop"] >> viper_tsk
+nomis_tsk_dic["tsk_denorm_inc_invol"] >> viper_tsk
 
 
 #####
@@ -50,3 +50,16 @@ assault_reason_tsk = ar_task(dag)
 nomis_tsk_dic["tsk_denorm_inc_invol"] >> assault_reason_tsk
 nomis_tsk_dic["tsk_locations"] >> assault_reason_tsk
 
+
+#####
+## SDT dashboard task
+from sdt_airflow import assign_task_to_dag as sdt_task_assign
+sdt_task = sdt_task_assign(dag)
+
+#viper_tsk >> sdt_task
+assault_reason_tsk >> sdt_task
+nomis_tsk_dic["tsk_denorm_pop"] >> sdt_task
+nomis_tsk_dic["tsk_offender_attr"] >> sdt_task
+nomis_tsk_dic["tsk_denorm_inc_invol"] >> sdt_task
+nomis_tsk_dic["tsk_offender_core"] >> sdt_task #redundant as tsk_denorm_inc_invol an interim dependency
+nomis_tsk_dic["tsk_incidents"] >> sdt_task #redundant as tsk_denorm_inc_invol an interim dependency
