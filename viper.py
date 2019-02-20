@@ -18,13 +18,13 @@ task_args = {
 
 viper_dag = DAG(
     "viper",
-    default_args=task_args,
-    description="Runs the VIPER routine",
-    start_date=datetime.now(),
-    schedule_interval=None,
-    # start_date= datetime(2019, 1, 30),
-    # schedule_interval= timedelta(days=1)
-    catchup=False,
+    default_args= task_args,
+    description= "Runs the VIPER routine",
+    start_date= datetime.now(),
+    schedule_interval= None,
+    #start_date= datetime(2019, 1, 30),
+    #schedule_interval= '0 2 * * *' #timedelta(days= 1),
+    catchup= False
 )
 
 
