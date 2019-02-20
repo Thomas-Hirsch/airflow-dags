@@ -21,31 +21,32 @@ dag = DAG(
     #start_date= datetime.now(),
     #schedule_interval= None,
     start_date= datetime(2019, 2, 19),
-    schedule_interval= '40 11 * * *', #timedelta(days= 1),
+    schedule_interval= '0 12 * * *', #timedelta(days= 1),
     catchup= False
 )
 
 #####
 ## NOMIS data transformations
 from nomis_transform import airflow_tasks as nomis_config
-from nomis_transform import assign_task_list_to_dag as nomis_transform_tasks
+from nomis_transform import assign_task_list_to_dag as nomis_transform_tasks_assign
 from nomis_transform import set_task_dependencies as set_nomis_dependencies
-nomis_tsk_dic = nomis_transform_tasks(dag, nomis_config)
+nomis_tsk_dic = nomis_transform_tasks_assign(dag, nomis_config)
 nomis_tsk_dic = set_nomis_dependencies(nomis_tsk_dic, nomis_config)
 
 
 #####
 ## VIPER task
-from viper import assign_task_to_dag as viper_task
-viper_tsk = viper_task(dag)
+from viper import assign_task_to_dag as viper_task_assign
+viper_tsk = viper_task_assign(dag)
+
 nomis_tsk_dic["tsk_denorm_pop"] >> viper_tsk
 nomis_tsk_dic["tsk_denorm_inc_invol"] >> viper_tsk
 
 
 #####
 ## Assault Reasons task
-from airflow_assaults_reasons import assign_task_to_dag as ar_task
-assault_reason_tsk = ar_task(dag)
+from airflow_assaults_reasons import assign_task_to_dag as ar_task_assign
+assault_reason_tsk = ar_task_assign(dag)
 
 nomis_tsk_dic["tsk_denorm_inc_invol"] >> assault_reason_tsk
 nomis_tsk_dic["tsk_locations"] >> assault_reason_tsk
