@@ -19,11 +19,11 @@ dag = DAG(
     "nomis-transformations",
     default_args= task_args,
     description= "Process and curate NOMIS data for Anvil replacement",
-    #start_date= datetime.now(),
-    #schedule_interval= None
-    start_date= datetime(2019, 2, 15, 2),
-    schedule_interval= timedelta(days= 1),
-    catchup= False
+    start_date= datetime.now(),
+    schedule_interval= None,
+    #start_date= datetime(2019, 2, 15, 2),
+    #schedule_interval= '0 2 * * *' #timedelta(days= 1),
+    catchup= False,
 )
 
 #############################
