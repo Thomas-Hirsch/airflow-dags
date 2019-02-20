@@ -41,7 +41,5 @@ task1 = KubernetesPodOperator(
     task_id=task_id,
     get_logs=True,
     annotations={"iam.amazonaws.com/role": ROLE},
-    env_vars={
-            "AWS_DEFAULT_REGION": "eu-west-1",
-        }
+    env_vars={"AWS_DEFAULT_REGION": "eu-west-1"}
 )
