@@ -21,7 +21,7 @@ dag = DAG(
     #start_date= datetime.now(),
     #schedule_interval= None,
     start_date= datetime(2019, 2, 19),
-    schedule_interval= '0 11 * * *' #timedelta(days= 1),
+    schedule_interval= '30 11 * * *' #timedelta(days= 1),
     catchup= False
 )
 
