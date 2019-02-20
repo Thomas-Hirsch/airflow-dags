@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 from airflow.utils.dates import days_ago
 
 # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-bentham-app:v0.2.6"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-bentham-app:v0.2.7"
 ROLE = "airflow_bentham_app"
 
 # Task arguments
@@ -27,8 +27,7 @@ dag = DAG(
     description="Check s3 for new phone data, then add to database if present.",
     start_date=datetime(2019, 1, 6, 2),
     schedule_interval='0 2 * * *',
-    catchup=False,
-    env_vars={"AWS_DEFAULT_REGION": "eu-west-1"}
+    catchup=False
 )
 
 task_id = "bentham-app-data-update"
@@ -42,4 +41,7 @@ task1 = KubernetesPodOperator(
     task_id=task_id,
     get_logs=True,
     annotations={"iam.amazonaws.com/role": ROLE},
+    env_vars={
+            "AWS_DEFAULT_REGION": "eu-west-1",
+        }
 )
