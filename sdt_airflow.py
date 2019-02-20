@@ -35,7 +35,7 @@ def assign_task_to_dag(target_dag):
     task_id = "sdt-data-update"
     
     return KubernetesPodOperator(
-        dag=dag,
+        dag= target_dag,
         namespace="airflow",
         image=IMAGE,
         labels={"app": dag.dag_id},
