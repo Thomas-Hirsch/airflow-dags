@@ -21,8 +21,10 @@ dag = DAG(
     "assaults-reasons",
     default_args=task_args,
     description="run at a specified time of day",
-    start_date=datetime(2019, 2, 1, 2),
-    schedule_interval=timedelta(days=1),
+    start_date= datetime.now(),
+    schedule_interval= None,
+    #start_date=datetime(2019, 2, 1, 2),
+    #schedule_interval= '0 2 * * *' #timedelta(days= 1),
     catchup=False
 )
 
