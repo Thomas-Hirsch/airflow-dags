@@ -2,7 +2,6 @@ from datetime import datetime, timedelta
 import airflow
 from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
-from airflow.utils.dates import days_ago
 
 # Task arguments
 task_args = {
