@@ -9,7 +9,7 @@ from airflow.utils.dates import days_ago
 
 log = LoggingMixin().log
 
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-build-addressbase-premium:v0.0.3"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-build-addressbase-premium:v0.0.4"
 ROLE = "airflow_addressbasepremium"
 
 
