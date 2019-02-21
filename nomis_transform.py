@@ -21,13 +21,10 @@ dag = DAG(
     description= "Process and curate NOMIS data for Anvil replacement",
     start_date= datetime.now(),
     schedule_interval= None,
-    #start_date= datetime(2019, 2, 15, 2),
-    #schedule_interval= '0 2 * * *' #timedelta(days= 1),
+    #start_date= datetime(2019, 2, 15),
+    #schedule_interval= '0 2 * * *',
     catchup= False,
 )
-
-#############################
-## NOMIS data transformations
 
 json_path = os.path.dirname(__file__) + "/dag_configs/nomis_transform_tasks.json"
 with open(json_path) as f:
