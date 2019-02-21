@@ -29,7 +29,7 @@ viper_dag = DAG(
 def assign_task_to_dag(target_dag):
 
     repo_name = "airflow-viper"
-    repo_release_tag = "v0.1.8"
+    repo_release_tag = "v0.2.0"
     VIPER_IMAGE = (
         f"593291632749.dkr.ecr.eu-west-1.amazonaws.com/{repo_name}:{repo_release_tag}"
     )
