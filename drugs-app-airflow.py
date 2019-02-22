@@ -14,7 +14,6 @@ task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "retry_delay": timedelta(seconds=30),
-    "retry_exponential_backoff": True,
     "owner": "meganstodel",
     "email": ["megan.stodel@justice.gov.uk"],
 }
