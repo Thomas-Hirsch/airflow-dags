@@ -1,9 +1,7 @@
 from datetime import datetime, timedelta
-
 import airflow
 from airflow import DAG
-from airflow.contrib.operators.kubernetes_pod_operator import \
-    KubernetesPodOperator
+from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
 # Task arguments
 task_args = {
@@ -23,7 +21,7 @@ viper_dag = DAG(
     start_date= datetime.now(),
     schedule_interval= None,
     #start_date= datetime(2019, 1, 30),
-    #schedule_interval= '0 2 * * *' #timedelta(days= 1),
+    #schedule_interval= '0 2 * * *',
     catchup= False
 )
 
@@ -31,7 +29,7 @@ viper_dag = DAG(
 def assign_task_to_dag(target_dag):
 
     repo_name = "airflow-viper"
-    repo_release_tag = "v0.1.8"
+    repo_release_tag = "v0.2.0"
     VIPER_IMAGE = (
         f"593291632749.dkr.ecr.eu-west-1.amazonaws.com/{repo_name}:{repo_release_tag}"
     )
@@ -45,6 +43,8 @@ def assign_task_to_dag(target_dag):
             "DATABASE": "anvil_beta",
             "OUTPUT_LOC": "alpha-anvil/curated",
             "AWS_DEFAULT_REGION": "eu-west-1",
+            "ATHENA_BUCKET": "alpha-nomis-discovery",
+            "ATHENA_FOLDER": "__viper_tmp__",
         },
         labels={"viper": viper_dag.dag_id},
         name="viper",
