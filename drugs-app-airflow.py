@@ -13,7 +13,6 @@ ROLE = "airflow_drugs_app"
 task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
-    "retry_delay": timedelta(seconds=30),
     "owner": "meganstodel",
     "email": ["megan.stodel@justice.gov.uk"],
 }
@@ -23,7 +22,10 @@ dag = DAG(
     "drugs_app",
     default_args=task_args,
     description="Check s3 for new drug finds data, then add to database if present.",
-    schedule_interval='0 2 * * *',
+    #start_date= datetime.now(),
+    #schedule_interval= None,
+    start_date= datetime(2019, 2, 22),
+    schedule_interval= '0 2 * * *',
     catchup=False
 )
 
