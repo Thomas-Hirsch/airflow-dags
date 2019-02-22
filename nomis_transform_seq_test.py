@@ -2,9 +2,6 @@ from datetime import datetime, timedelta
 import airflow
 from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
-from airflow.utils.dates import days_ago
-import json
-import os
 
 # Task arguments
 task_args = {
@@ -20,8 +17,8 @@ dag = DAG(
     description= "NOMIS dependency data pipeline",
     #start_date= datetime.now(),
     #schedule_interval= None,
-    start_date= datetime(2019, 2, 19),
-    schedule_interval= '0 12 * * *', #timedelta(days= 1),
+    start_date= datetime(2019, 2, 20),
+    schedule_interval= '0 2 * * *',
     catchup= False
 )
 

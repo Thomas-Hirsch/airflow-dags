@@ -96,8 +96,7 @@
                 "persons",
                 "staff_members",
                 "random_testing_programs",
-                "offender_visits",
-                "offender_visit_visitors"
+                "offender_visits"
             ],
             "task_dependency_ids": []
         },
