@@ -25,7 +25,7 @@ dag = DAG(
 def assign_task_to_dag(target_dag):
 
     # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-    IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-sdt:v1.5"
+    IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-sdt:v1.6.1"
     ROLE = "airflow_sdt"
     task_id = "sdt-data-update"
     
