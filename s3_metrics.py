@@ -1,8 +1,9 @@
+from datetime import datetime
+
 from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import (
     KubernetesPodOperator
 )
-from airflow.utils.dates import days_ago
 
 
 IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-s3-metrics:v0.0.1"
@@ -22,7 +23,7 @@ dag = DAG(
     "s3_metrics",
     default_args=task_args,
     description="Download s3 metrics from cloudwatch and add them to a bucket",
-    start_date=days_ago(1),
+    start_date=datetime(2019, 2, 25),
     schedule_interval="0 1 * * *",
 )
 
