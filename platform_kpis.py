@@ -11,10 +11,12 @@ SCRAPER_IAM_ROLE = "airflow_platform_kpis"
 try:
     from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
-    args = {"owner": "Robin",
+    args = {"owner": "David",
             "start_date": days_ago(0),
             "retries": 3,
-            "retry_delay": timedelta(minutes=30),
+            "retry_delay": timedelta(minutes=5),
+            "email_on_failure": True,
+            "email_on_retry": False,
             "email": ["david.read@digital.justice.gov.uk"]}
 
     dag = DAG(
