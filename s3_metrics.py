@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import (
 )
 
 
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-s3-metrics:v0.0.1"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-s3-metrics:v0.0.2"
 ROLE = "airflow_s3_metrics"
 
 AWS_S3_BUCKET = "alpha-s3-metrics"
