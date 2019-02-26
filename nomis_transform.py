@@ -1,9 +1,7 @@
-
 from datetime import datetime, timedelta
 import airflow
 from airflow import DAG
 from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
-from airflow.utils.dates import days_ago
 import json
 import os
 
@@ -19,15 +17,12 @@ dag = DAG(
     "nomis-transformations",
     default_args= task_args,
     description= "Process and curate NOMIS data for Anvil replacement",
-    #start_date= datetime.now(),
-    #schedule_interval= None
-    start_date= datetime(2019, 2, 15, 2),
-    schedule_interval= timedelta(days= 1),
-    catchup= False
+    start_date= datetime.now(),
+    schedule_interval= None,
+    #start_date= datetime(2019, 2, 15),
+    #schedule_interval= '0 2 * * *',
+    catchup= False,
 )
-
-#############################
-## NOMIS data transformations
 
 json_path = os.path.dirname(__file__) + "/dag_configs/nomis_transform_tasks.json"
 with open(json_path) as f:
