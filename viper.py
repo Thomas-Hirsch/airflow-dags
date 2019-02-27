@@ -42,7 +42,7 @@ def assign_task_to_dag(target_dag):
         env_vars={
             "DATABASE": "anvil_beta",
             "OUTPUT_LOC": "alpha-anvil/curated",
-            "AWS_DEFAULT_REGION": "eu-west-1",
+            #"AWS_DEFAULT_REGION": "eu-west-1",
             "ATHENA_BUCKET": "alpha-nomis-discovery",
             "ATHENA_FOLDER": "__viper_tmp__",
         },
