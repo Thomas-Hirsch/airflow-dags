@@ -6,31 +6,30 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 from airflow.utils.dates import days_ago
 
 # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-bentham-app:v0.3.1"
-ROLE = "airflow_bentham_app"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-drugs-app:v0.0.8"
+ROLE = "airflow_drugs_app"
 
 # Task arguments
 task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
-    "retries": 3,
-    "retry_delay": timedelta(seconds=30),
-    "retry_exponential_backoff": True,
-    "owner": "joeprinold",
-    "email": ["joe.prinold@digital.justice.gov.uk"],
+    "owner": "meganstodel",
+    "email": ["megan.stodel@justice.gov.uk"],
 }
 
 # # # Define your DAG
 dag = DAG(
-    "bentham_app_2",
+    "drugs_app",
     default_args=task_args,
-    description="Check s3 for new phone data, then add to database if present.",
-    start_date=datetime(2019, 1, 6, 2),
-    schedule_interval='0 2 * * *',
+    description="Check s3 for new drug finds data, then add to database if present.",
+    #start_date= datetime.now(),
+    #schedule_interval= None,
+    start_date= datetime(2019, 2, 22),
+    schedule_interval= '0 2 * * *',
     catchup=False
 )
 
-task_id = "bentham-app-data-update"
+task_id = "drugs-app-data-update"
 task1 = KubernetesPodOperator(
     dag=dag,
     namespace="airflow",
@@ -41,5 +40,4 @@ task1 = KubernetesPodOperator(
     task_id=task_id,
     get_logs=True,
     annotations={"iam.amazonaws.com/role": ROLE},
-    env_vars={"AWS_DEFAULT_REGION": "eu-west-1"}
 )
