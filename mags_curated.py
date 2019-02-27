@@ -14,11 +14,12 @@ go_time = datetime.now()
 go_time.strftime("%Y-%m-%dT%H:%M:%S")
 
 # TAR GLUE JOB SCRIPT ENVs
-GLUE_JOB_BUCKET="alpha-mojap-curated-mags"
-AIRFLOW_JOB_NAME="airflow_curated_tar"
-GLUE_JOB_FOLDER_NAME="curated_tar"
-DATABASE_RUN_DATETIME=go_time.strftime("%Y-%m-%dT%H:%M:%S")
-SNAPSHOT_DATE=go_time.strftime("%Y-%m-%d")
+GLUE_JOB_SCRIPT = "run_glue_job.py"
+GLUE_JOB_BUCKET = "alpha-mojap-curated-mags"
+AIRFLOW_JOB_NAME = "airflow_curated_tar"
+GLUE_JOB_FOLDER_NAME = "curated_tar"
+DATABASE_RUN_DATETIME = go_time.strftime("%Y-%m-%dT%H:%M:%S")
+SNAPSHOT_DATE = go_time.strftime("%Y-%m-%d")
 ALLOCATED_CAPACITY="8"
 
 # SCHEMA REBUILD ENVs
@@ -50,7 +51,7 @@ tasks[task_id] = KubernetesPodOperator(
     namespace="airflow",
     image=MAGS_IMAGE,
     env_vars={
-        "PYTHON_SCRIPT_NAME": DB_REBUILD_SCRIPT,
+        "PYTHON_SCRIPT_NAME": GLUE_JOB_SCRIPT,
         "DB_VERSION": DB_VERSION,
         "GLUE_JOB_BUCKET": GLUE_JOB_BUCKET,
         "GLUE_JOB_ROLE": MAGS_ROLE,
