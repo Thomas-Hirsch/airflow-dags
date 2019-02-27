@@ -40,5 +40,6 @@ task1 = KubernetesPodOperator(
     in_cluster=True,
     task_id=task_id,
     get_logs=True,
+    startup_timeout_seconds=500,
     annotations={"iam.amazonaws.com/role": ROLE},
 )
