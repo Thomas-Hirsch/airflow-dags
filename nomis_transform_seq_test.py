@@ -9,14 +9,15 @@ task_args = {
     "email_on_failure": True,
     "owner": "mandarinduck",
     "email": ["adam.booker@digital.justice.gov.uk","anvil@noms.gsi.gov.uk"],
+    "retries": 5,
+    "retry_delay": timedelta(seconds=60),
+    "retry_exponential_backoff": True,
 }
 
 dag = DAG(
     "nomis-transform-seq-test",
     default_args= task_args,
     description= "NOMIS dependency data pipeline",
-    #start_date= datetime.now(),
-    #schedule_interval= None,
     start_date= datetime(2019, 2, 20),
     schedule_interval= '0 2 * * *',
     catchup= False
