@@ -55,7 +55,7 @@ nomis_tsk_dic["tsk_locations"] >> assault_reason_tsk
 from sdt_airflow import assign_task_to_dag as sdt_task_assign
 sdt_task = sdt_task_assign(dag)
 
-#viper_tsk >> sdt_task
+viper_tsk >> sdt_task
 assault_reason_tsk >> sdt_task
 nomis_tsk_dic["tsk_denorm_pop"] >> sdt_task
 nomis_tsk_dic["tsk_offender_attr"] >> sdt_task
