@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 from airflow.utils.dates import days_ago
 
 # GLOBAL ENV VARIABLES
-IMAGE_VERSION = "v0.0.13"
+IMAGE_VERSION = "v0.0.14"
 IMAGE = f"593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-psst-data:{IMAGE_VERSION}"
 ROLE = "airflow_psst_data"
 
