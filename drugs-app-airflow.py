@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 from airflow.utils.dates import days_ago
 
 # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-drugs-app:v0.0.8"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-drugs-app:v0.0.10"
 ROLE = "airflow_drugs_app"
 
 # Task arguments
@@ -24,7 +24,7 @@ dag = DAG(
     description="Check s3 for new drug finds data, then add to database if present.",
     #start_date= datetime.now(),
     #schedule_interval= None,
-    start_date= datetime(2019, 2, 22),
+    start_date= datetime(2019, 3, 5),
     schedule_interval= '0 2 * * *',
     catchup=False
 )
