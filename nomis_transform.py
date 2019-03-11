@@ -33,7 +33,7 @@ def assign_task_list_to_dag(target_dag, dag_config):
 
     # Define docker image and the AWS role (based on the airflow-repo)
     repo_name = "airflow-nomis-transform"
-    repo_release_tag = "v2.0.17"
+    repo_release_tag = "v2.0.18"
     IMAGE = f"593291632749.dkr.ecr.eu-west-1.amazonaws.com/{repo_name}:{repo_release_tag}"
     ROLE = "airflow_nomis_transform"
 
