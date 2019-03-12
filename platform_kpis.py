@@ -26,16 +26,17 @@ try:
         catchup=False,
     )
     # https://github.com/apache/incubator-airflow/blob/5a3f39913739998ca2e9a17d0f1d10fccb840d36/airflow/contrib/operators/kubernetes_pod_operator.py#L129
+    task_name = "platform-kpis"
     surveys_to_s3 = KubernetesPodOperator(
         namespace="airflow",
         image=SCRAPER_IMAGE,
         image_pull_policy='Always',
         cmds=["bash", "-c"],
         arguments=["python main.py"],
-        labels={"foo": "bar"},
-        name="airflow-test-pod",
+        labels={"task": task_name},
+        name=task_name,
         in_cluster=True,
-        task_id="get_kpis",
+        task_id=task_name,
         get_logs=True,
         dag=dag,
         annotations={"iam.amazonaws.com/role": SCRAPER_IAM_ROLE},
