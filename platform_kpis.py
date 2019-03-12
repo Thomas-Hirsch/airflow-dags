@@ -12,6 +12,7 @@ try:
     from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
 
     args = {"owner": "David",
+            "start_date": days_ago(0),
             "retries": 3,
             "retry_delay": timedelta(minutes=5),
             "email_on_failure": True,
