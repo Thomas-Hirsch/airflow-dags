@@ -24,7 +24,7 @@ dag = DAG(
     default_args=task_args,
     description="Download s3 metrics from cloudwatch and add them to a bucket",
     start_date=datetime(2019, 2, 25),
-    schedule_interval="0 1 * * *",
+    schedule_interval="0 22 * * *",
 )
 
 tasks = {}
