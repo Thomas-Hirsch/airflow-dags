@@ -23,7 +23,7 @@ try:
 
     surveys_to_s3 = KubernetesPodOperator(
         namespace="airflow",
-        image="593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-occupeye-scraper:v0.6",
+        image="593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-occupeye-scraper:v0.7.2",
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5"
