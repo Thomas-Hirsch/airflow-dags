@@ -6,7 +6,7 @@ from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOpera
 from airflow.utils.dates import days_ago
 
 # Define your docker image and the AWS role that will run the image (based on your airflow-repo)
-IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-drugs-app:v0.0.20"
+IMAGE = "593291632749.dkr.ecr.eu-west-1.amazonaws.com/airflow-drugs-app:v0.0.21"
 ROLE = "airflow_drugs_app"
 
 # Task arguments
@@ -40,4 +40,5 @@ task1 = KubernetesPodOperator(
     task_id=task_id,
     get_logs=True,
     annotations={"iam.amazonaws.com/role": ROLE},
+    env_vars={"AWS_DEFAULT_REGION": "eu-west-1"}
 )
