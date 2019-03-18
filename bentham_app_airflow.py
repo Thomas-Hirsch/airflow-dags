@@ -26,7 +26,7 @@ dag = DAG(
     default_args=task_args,
     description="Check s3 for new phone data, then add to database if present.",
     start_date=datetime(2019, 1, 6, 2),
-    schedule_interval='0 2 * * *',
+    schedule_interval='0 1 * * *',
     catchup=False
 )
 
